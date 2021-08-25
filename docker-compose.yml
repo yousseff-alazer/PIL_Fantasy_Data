@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  fantasy_db:
+    image: mysql:5.7.22
+
+
+  phpmyadmin3:
+    image: phpmyadmin/phpmyadmin:4.7
+
+  pil_fantasy_data_integration.api:
+    image: ${DOCKER_REGISTRY-}pilfantasydataintegrationapi
+    build:
+      context: .
+      dockerfile: PIL_Fantasy_Data_Integration.API/Dockerfile
+
+networks:
+  fantasy:
+    driver: bridge
+volumes:
+  mysql:
+    driver: local

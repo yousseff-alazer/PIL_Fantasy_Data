@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  fantasy_db:
+    image: mysql:5.7.22
+    container_name: fantasy_db
+    restart: always
+    tty: true
+    ports:
+      - "3310:3310"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./nginx:/etc/mysql/conf.d
+    environment:
+      MYSQL_DATABASE: fantasy_data
+      MYSQL_USER: pil_fantasy
+      MYSQL_ROOT_PASSWORD: 1a456#idgj_5f@sj*du7fg78@
+      SERVICE_NAME: fantasy_db
+      MYSQL_TCP_PORT: 3310
+    networks:
+      - fantasy
+
+  phpmyadmin3:
+    depends_on:
+      - fantasy_db
+    container_name: phpmyadmin3
+    restart: always
+    tty: true
+    ports:
+      - "4010:80"
+    environment:
+      PMA_HOST: fantasy_db
+      PMA_PORT: 3310
+    networks:
+      - fantasy
+
+  pil_fantasy_data_integration.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=server=fantasy_db;port=3310;database=fantasy_data;user id=root;password=1a456#idgj_5f@sj*du7fg78@;sslmode=none;treattinyasboolean=false;"
+    depends_on:
+      - fantasy_db
+    ports:
+      - "8010:80"
+    networks:
+      - fantasy
