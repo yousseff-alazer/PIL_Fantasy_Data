@@ -42,15 +42,12 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasCharSet("latin1")
-                .UseCollation("latin1_swedish_ci");
+            modelBuilder.HasCharSet("utf8")
+                .UseCollation("utf8_unicode_ci");
 
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.ToTable("country");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
@@ -81,7 +78,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                     .HasDefaultValueSql("b'0'");
 
                 entity.Property(e => e.Iso)
-                    .IsRequired()
                     .HasMaxLength(45)
                     .UseCollation("utf8_general_ci");
 
@@ -92,14 +88,15 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                 entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .UseCollation("utf8_general_ci");
+
+                entity.Property(e => e.Show)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
             });
 
             modelBuilder.Entity<CountryLocalize>(entity =>
             {
                 entity.ToTable("country_localize");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.HasIndex(e => e.CountryId, "fk_countryLocalize_country_idx");
 
@@ -144,9 +141,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("league");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
                     .HasColumnName("ID");
@@ -183,6 +177,12 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.ModifiedBy).HasColumnType("bigint(20)");
 
+                entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.Property(e => e.Show)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
                 entity.Property(e => e.VendorId)
@@ -193,9 +193,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             modelBuilder.Entity<LeagueLocalize>(entity =>
             {
                 entity.ToTable("league_localize");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.HasIndex(e => e.LeagueId, "fk_league_leagueLocaloize_idx");
 
@@ -238,9 +235,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("match");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.HasIndex(e => e.Team1Id, "matchTeam1Id_team_idx");
 
                 entity.HasIndex(e => e.Team2Id, "matchTeam2Id_team_idx");
@@ -256,6 +250,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Description).HasColumnType("mediumtext");
 
                 entity.Property(e => e.EndDatetime).HasColumnType("datetime");
 
@@ -285,6 +281,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.Team2Score).HasColumnType("int(11)");
 
+                entity.Property(e => e.Title).HasMaxLength(250);
+
                 entity.Property(e => e.VendorId)
                     .HasColumnType("bigint(20)")
                     .HasDefaultValueSql("'1'");
@@ -313,9 +311,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             modelBuilder.Entity<MatchLocalize>(entity =>
             {
                 entity.ToTable("match_localize");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.HasIndex(e => e.MatchId, "fk_match_localize_match_idx");
 
@@ -360,14 +355,13 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("player");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.HasIndex(e => e.TeamId, "fk_player_team_idx");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
                     .HasColumnName("ID");
+
+                entity.Property(e => e.Age).HasMaxLength(150);
 
                 entity.Property(e => e.CardsRed).HasMaxLength(45);
 
@@ -431,8 +425,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.TeamId).HasColumnType("bigint(20)");
 
-                entity.Property(e => e.Type).HasMaxLength(150);
-
                 entity.Property(e => e.Weight).HasMaxLength(150);
 
                 entity.HasOne(d => d.Team)
@@ -445,9 +437,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             modelBuilder.Entity<PlayerLocalize>(entity =>
             {
                 entity.ToTable("player_localize");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.HasIndex(e => e.PlayerId, "fk_playerLocalize_player_idx");
 
@@ -510,9 +499,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("player_match_rating");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.HasIndex(e => e.MatchId, "fk_player_match_rat_match_idx");
 
                 entity.HasIndex(e => e.PlayerId, "fk_player_match_rat_player_idx");
@@ -571,9 +557,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             modelBuilder.Entity<PlayerMatchStat>(entity =>
             {
                 entity.ToTable("player_match_stats");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.HasIndex(e => e.TeamId, "fk_player_match_rat_team_idx");
 
@@ -684,9 +667,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("team");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.HasIndex(e => e.LeagueId, "fk_team_league_idx");
 
                 entity.Property(e => e.Id)
@@ -709,9 +689,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.Group)
-                    .HasMaxLength(1)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Group).HasMaxLength(250);
 
                 entity.Property(e => e.ImageUrl)
                     .IsRequired()
@@ -754,9 +732,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("team_localize");
 
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
-
                 entity.HasIndex(e => e.TeamId, "fk_teamLocalize_team_idx");
 
                 entity.Property(e => e.Id)
@@ -797,9 +772,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             modelBuilder.Entity<Vendor>(entity =>
             {
                 entity.ToTable("vendor");
-
-                entity.HasCharSet("utf8")
-                    .UseCollation("utf8_unicode_ci");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")

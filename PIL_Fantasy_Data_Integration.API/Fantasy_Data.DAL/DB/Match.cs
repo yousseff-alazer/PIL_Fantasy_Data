@@ -32,6 +32,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public long LeagueId { get; set; }
         public string Status { get; set; }
         public long VendorId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
         public virtual League League { get; set; }
         public virtual Team Team1 { get; set; }

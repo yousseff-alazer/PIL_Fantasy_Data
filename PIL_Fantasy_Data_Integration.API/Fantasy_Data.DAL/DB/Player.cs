@@ -25,7 +25,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public string IntegrationId { get; set; }
         public string Nationality { get; set; }
         public string Position { get; set; }
-        public string Type { get; set; }
+        public string Age { get; set; }
         public string DateOfBirth { get; set; }
         public string CountryOfBirth { get; set; }
         public string Height { get; set; }

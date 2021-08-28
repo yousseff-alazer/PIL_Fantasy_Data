@@ -24,6 +24,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public int? DiffHours { get; set; }
         public string Name { get; set; }
         public string Flag { get; set; }
+        public bool? Show { get; set; }
 
         public virtual ICollection<CountryLocalize> CountryLocalizes { get; set; }
     }

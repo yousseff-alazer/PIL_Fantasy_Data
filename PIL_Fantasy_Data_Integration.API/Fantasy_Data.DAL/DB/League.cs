@@ -31,6 +31,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public string LeagueIsFriendly { get; set; }
         public string LeagueType { get; set; }
         public long? VendorId { get; set; }
+        public bool? Show { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<LeagueLocalize> LeagueLocalizes { get; set; }
         public virtual ICollection<Match> Matches { get; set; }
