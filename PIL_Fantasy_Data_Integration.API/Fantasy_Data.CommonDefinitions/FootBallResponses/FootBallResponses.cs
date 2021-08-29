@@ -44,6 +44,19 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("statistics", NullValueHandling = NullValueHandling.Ignore)]
             public List<Statistic> Statistics { get; set; }
+
+
+            [JsonProperty("fixture", NullValueHandling = NullValueHandling.Ignore)]
+            public Fixture Fixture { get; set; }
+
+            [JsonProperty("teams", NullValueHandling = NullValueHandling.Ignore)]
+            public Teams Teams { get; set; }
+
+            [JsonProperty("goals", NullValueHandling = NullValueHandling.Ignore)]
+            public Goals Goals { get; set; }
+
+            [JsonProperty("score", NullValueHandling = NullValueHandling.Ignore)]
+            public Score Score { get; set; }
         }
 
         public class Root
@@ -88,6 +101,9 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("standings", NullValueHandling = NullValueHandling.Ignore)]
             public List<List<Standing>> Standings { get; set; }
+
+            [JsonProperty("round", NullValueHandling = NullValueHandling.Ignore)]
+            public string Round { get; set; }
         }
 
         public class Country
@@ -197,6 +213,11 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("saves", NullValueHandling = NullValueHandling.Ignore)]
             public int? Saves { get; set; }
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Away { get; set; }
         }
 
         public class All
@@ -233,6 +254,18 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("goals", NullValueHandling = NullValueHandling.Ignore)]
             public Goals Goals { get; set; }
+
+            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+            public int Id { get; set; }
+
+            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+            public string Name { get; set; }
+
+            [JsonProperty("logo", NullValueHandling = NullValueHandling.Ignore)]
+            public string Logo { get; set; }
+
+            [JsonProperty("winner", NullValueHandling = NullValueHandling.Ignore)]
+            public bool? Winner { get; set; }
         }
 
         public class Away
@@ -251,6 +284,17 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("goals", NullValueHandling = NullValueHandling.Ignore)]
             public Goals Goals { get; set; }
+            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+            public int Id { get; set; }
+
+            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+            public string Name { get; set; }
+
+            [JsonProperty("logo", NullValueHandling = NullValueHandling.Ignore)]
+            public string Logo { get; set; }
+
+            [JsonProperty("winner", NullValueHandling = NullValueHandling.Ignore)]
+            public bool? Winner { get; set; }
         }
 
         public class Standing
@@ -481,6 +525,12 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("saved", NullValueHandling = NullValueHandling.Ignore)]
             public int? Saved { get; set; }
+
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public object Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public object Away { get; set; }
         }
 
         public class Statistic
@@ -520,6 +570,114 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("cards", NullValueHandling = NullValueHandling.Ignore)]
             public Cards Cards { get; set; }
+
+            [JsonProperty("penalty", NullValueHandling = NullValueHandling.Ignore)]
+            public Penalty Penalty { get; set; }
+        }
+        public class Periods
+        {
+            [JsonProperty("first", NullValueHandling = NullValueHandling.Ignore)]
+            public int? First { get; set; }
+
+            [JsonProperty("second", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Second { get; set; }
+        }
+
+        public class Venue
+        {
+            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+            public int Id { get; set; }
+
+            [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+            public string Name { get; set; }
+
+            [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
+            public string City { get; set; }
+        }
+
+        public class Status
+        {
+            [JsonProperty("long", NullValueHandling = NullValueHandling.Ignore)]
+            public string Long { get; set; }
+
+            [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore)]
+            public string Short { get; set; }
+
+            [JsonProperty("elapsed", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Elapsed { get; set; }
+        }
+
+        public class Fixture
+        {
+            [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+            public int Id { get; set; }
+
+            [JsonProperty("referee", NullValueHandling = NullValueHandling.Ignore)]
+            public string Referee { get; set; }
+
+            [JsonProperty("timezone", NullValueHandling = NullValueHandling.Ignore)]
+            public string Timezone { get; set; }
+
+            [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
+            public DateTime Date { get; set; }
+
+            [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
+            public int Timestamp { get; set; }
+
+            [JsonProperty("periods", NullValueHandling = NullValueHandling.Ignore)]
+            public Periods Periods { get; set; }
+
+            [JsonProperty("venue", NullValueHandling = NullValueHandling.Ignore)]
+            public Venue Venue { get; set; }
+
+            [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+            public Status Status { get; set; }
+        }
+        public class Teams
+        {
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public Home Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public Away Away { get; set; }
+        }
+
+        public class Halftime
+        {
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Away { get; set; }
+        }
+
+        public class Fulltime
+        {
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Away { get; set; }
+        }
+
+        public class Extratime
+        {
+            [JsonProperty("home", NullValueHandling = NullValueHandling.Ignore)]
+            public object Home { get; set; }
+
+            [JsonProperty("away", NullValueHandling = NullValueHandling.Ignore)]
+            public object Away { get; set; }
+        }
+        public class Score
+        {
+            [JsonProperty("halftime", NullValueHandling = NullValueHandling.Ignore)]
+            public Halftime Halftime { get; set; }
+
+            [JsonProperty("fulltime", NullValueHandling = NullValueHandling.Ignore)]
+            public Fulltime Fulltime { get; set; }
+
+            [JsonProperty("extratime", NullValueHandling = NullValueHandling.Ignore)]
+            public Extratime Extratime { get; set; }
 
             [JsonProperty("penalty", NullValueHandling = NullValueHandling.Ignore)]
             public Penalty Penalty { get; set; }

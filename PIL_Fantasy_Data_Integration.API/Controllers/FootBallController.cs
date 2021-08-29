@@ -19,8 +19,9 @@ using static PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Foo
 
 namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.API.Controllers
 {
-    [EnableCors("MyPolicy")]
-    [Route("api/[controller]")]
+    //[EnableCors("MyPolicy")]
+    [Route("api/fantasydata/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FootBallController : Controller
     {
         private static readonly string apiUrl = "https://v3.football.api-sports.io/";
@@ -86,6 +87,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.API.Controllers
                 return null;
             }
         }
+
         [Route("HandleLeague")]
         [HttpGet]
         public ActionResult HandleLeague()
@@ -380,14 +382,16 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
                         }
                     }
                 }
-                _context.SaveChanges();
+               var status= _context.SaveChanges();
+                return Ok(status);
             }
             catch (Exception ex)
             {
                 LogHelper.LogException(ex.Message, ex.StackTrace);
+                return Ok(ex.Message+ ex.StackTrace);
             }
 
-            return Ok("Done");
+           
         }
 
         private static Root GetFootBallPlayer(string team, int startDateYear, int page = 1)
@@ -419,24 +423,19 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
 
         [Route("HandleMatches")]
         [HttpGet]
-        public ActionResult HandleMatches()
+        public ActionResult HandleMatches(bool live =false)
         {
             try
             {
-                var countryNames =
-                    _context.CountryLocalizes.Where(c => c.Name != null && !c.IsDeleted.Value)
-                        ?.Select(c => c.Name.ToLower()).ToList();
-                //countryNames.RemoveAll(c => !c.Contains("angola"));
                 var leagueDbs = _context.Leagues.Where(c =>
-                    !c.IsDeleted.Value && c.VendorId == 1 && c.DefaultImageUrl != "NA" && countryNames != null && c.LeagueCountry != null && countryNames.Contains(c.LeagueCountry.ToLower())).ToList();
-         
+    !c.IsDeleted.Value && c.VendorId == 1 && c.IntegrationId != null && c.Show.Value).ToList();
 
                 foreach (var leagueDb in leagueDbs)
                 {
                     if (leagueDb != null)
                     {
-                        var matchesReses = GetFootBallMatch(leagueDb.IntegrationId, leagueDb.StartDate.Year);
-                        foreach (var footBallMatchesRese in matchesReses)
+                        var matchesReses = GetFootBallMatch(leagueDb.IntegrationId, leagueDb.StartDate.Year,live);
+                        foreach (var footBallMatchesRese in matchesReses.Response)
                         {
                             //HandleMatchTeams(footBallMatchesRese, leagueDb);
                             var matchDb = _context.Matches.FirstOrDefault(c =>
@@ -464,7 +463,8 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
                                     Team2Id = team2?.Id ?? 0,
                                     HomeTeamId = team1?.Id ?? 0,
                                     Team1Score = footBallMatchesRese.Goals.Home,
-                                    Team2Score = footBallMatchesRese.Goals.Away
+                                    Team2Score = footBallMatchesRese.Goals.Away,
+                                    VendorId=1
                                 };
                                 if (footBallMatchesRese.Fixture.Status.Elapsed != null &&
                                     footBallMatchesRese.Fixture.Status.Short == "FT")
@@ -496,15 +496,16 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
                             }
                         }
 
-                        _context.SaveChanges();
+                        var status=_context.SaveChanges();
+                        return Ok(status);
                     }
                 }
             }
             catch (Exception ex)
             {
                 LogHelper.LogException(ex.Message, ex.StackTrace);
+                return Ok(ex.Message+ex.StackTrace);
             }
-
             return Ok("Done");
         }
 
@@ -538,10 +539,19 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
             }
         }
 
-        private static List<FootBallMatchesRes> GetFootBallMatch(string league, int startDateYear)
+        private static Root GetFootBallMatch(string league, int startDateYear, bool live)
         {
-            var relativeUrl =
-                $"fixtures?league={league}&season={startDateYear}";
+            var relativeUrl = string.Empty;
+            if (!live)
+            {
+                relativeUrl =
+                                $"fixtures?league={league}&season={startDateYear}";
+            }
+            else
+            {
+                relativeUrl =
+                $"fixtures?league={league}&season={startDateYear}&live=all";
+            }
             var response = UIHelper.CreateRequest(apiUrl, HttpMethod.Get, relativeUrl, apiKey: apiKey);
             //var response = UIHelper.AddProxy(relativeUrl, basicAuthUser: authUser,
             //    basicAuthPassword: authPassword,isProxy:true);
@@ -550,8 +560,10 @@ $"standings?league={league}&season={startDateYear}&team={TeamIntegrationId}";
                 if (response.StatusCode != HttpStatusCode.OK) return null;
                 var result = response.Content.ReadAsStringAsync().Result;
 
-                var token2 = JToken.Parse(result);
-                var model = JsonConvert.DeserializeObject<List<FootBallMatchesRes>>(token2["response"].ToString());
+                //var token2 = JToken.Parse(result);
+                //var model = JsonConvert.DeserializeObject<List<FootBallMatchesRes>>(token2["response"].ToString());
+                var model = JsonConvert.DeserializeObject<Root>(result);
+
                 return model;
                 //return null;
             }
