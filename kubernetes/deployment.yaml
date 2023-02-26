@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pil-fantasy-data
+  labels:
+    app: pil-fantasy-data
+    type: backend
+  namespace: default  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pil-fantasy-data
+  template:
+    metadata:
+      labels: 
+        app: pil-fantasy-data
+    spec:   
+      containers:
+        - name: pil-fantasy-data
+          image: 842216378405.dkr.ecr.eu-central-1.amazonaws.com/pil_fantasy_data:prod
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production

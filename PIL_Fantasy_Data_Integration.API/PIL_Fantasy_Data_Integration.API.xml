@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PIL_Fantasy_Data_Integration.API</name>
+    </assembly>
+    <members>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.CountriesController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.CountryRequest)">
+            <summary>
+            Return List Of Country With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.FantasyRulesController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.FantasyRuleRequest)">
+            <summary>
+            Return List Of FantasyRule With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.FantasyRulesController.GetFantasyRuleLocalize(System.Int32)">
+            <summary>
+            Return FantasyRule With id .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.FantasyRulesController.AddFantasyRuleLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.FantasyRuleLocalizeRequest)">
+            <summary>
+            Creates FantasyRuleLocalize.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.FantasyRulesController.DeleteFantasyRuleLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.FantasyRuleLocalizeRequest)">
+            <summary>
+            Remove FantasyRuleLocalize .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.LeaguesController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.LeagueRequest)">
+            <summary>
+            Return List Of League With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.LeaguesController.GetLeagueLocalize(System.Int32)">
+            <summary>
+            Return League With id .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.LeaguesController.AddLeagueLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.LeagueLocalizeRequest)">
+            <summary>
+            Creates LeagueLocalize.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.LeaguesController.DeleteLeagueLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.LeagueLocalizeRequest)">
+            <summary>
+            Remove LeagueLocalize .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.MatchRequest)">
+            <summary>
+            Return List Of Match With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.GetFiltered(System.Boolean)">
+            <summary>
+            Return List Of Match With current .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.SendEndMatch">
+            <summary>
+            SendEndMatch .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.SyncMatch(System.String)">
+            <summary>
+            Receive EndMatch Sync.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.NotPlayedMatch">
+            <summary>
+            Receive NotPlayedMatch
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.MatchStart(System.Int64)">
+            <summary>
+            MatchStart Sync.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.NoPointsMatch">
+            <summary>
+            Receive NotPlayedMatch
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.GetMatchLocalize(System.Int32)">
+            <summary>
+            Return Match With id .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.AddMatchLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.MatchLocalizeRequest)">
+            <summary>
+            Creates MatchLocalize.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.MatchesController.DeleteMatchLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.MatchLocalizeRequest)">
+            <summary>
+            Remove MatchLocalize .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayerMatchRatingMatchRatingsController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerMatchRatingRequest)">
+            <summary>
+            Return List Of PlayerMatchRating With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayerMatchStatMatchStatsController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerMatchStatRequest)">
+            <summary>
+            Return List Of PlayerMatchStat With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerRequest)">
+            <summary>
+            Return List Of Player With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.GetFilteredByPosition(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerRequest)">
+            <summary>
+            Return List Of Player by position With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.Edit(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerRequest)">
+            <summary>
+            Edit Player with id.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.GetPlayerLocalize(System.Int32)">
+            <summary>
+            Return Player With id .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.AddPlayerLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerLocalizeRequest)">
+            <summary>
+            Creates PlayerLocalize.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.PlayersController.DeletePlayerLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.PlayerLocalizeRequest)">
+            <summary>
+            Remove PlayerLocalize .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.TeamsController.GetFiltered(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.TeamRequest)">
+            <summary>
+            Return List Of Team With filter valid and any  needed filter like id,...  .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.TeamsController.GetTeamLocalize(System.Int32)">
+            <summary>
+            Return Team With id .
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.TeamsController.AddTeamLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.TeamLocalizeRequest)">
+            <summary>
+            Creates TeamLocalize.
+            </summary>
+        </member>
+        <member name="M:PIL_Fantasy_Data_Integration.API.Controllers.TeamsController.DeleteTeamLocalize(PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Requests.TeamLocalizeRequest)">
+            <summary>
+            Remove TeamLocalize .
+            </summary>
+        </member>
+    </members>
+</doc>

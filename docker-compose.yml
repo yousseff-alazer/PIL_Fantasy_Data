@@ -4,6 +4,8 @@ services:
   fantasy_db:
     image: mysql:5.7.22
 
+  #fantasy_cache_db:
+  #  image: redis
 
   phpmyadmin3:
     image: phpmyadmin/phpmyadmin:4.7

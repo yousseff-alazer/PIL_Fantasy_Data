@@ -19,6 +19,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public string IntegrationId { get; set; }
         public string Minutes { get; set; }
         public string Rating { get; set; }
+        public long? Points { get; set; }
 
         public virtual Match Match { get; set; }
         public virtual Player Player { get; set; }

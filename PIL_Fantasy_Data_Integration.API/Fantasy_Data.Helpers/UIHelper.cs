@@ -88,7 +88,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.Helpers
             return text;
         }
 
-        public static HttpResponseMessage AddRequestToServiceApi(string url, JObject json, string basicAuthUser = "", string basicAuthPassword = "", string bearerToken = "", string chargeKey = "", string APIKey = "", string APIPassword = "")
+        public static HttpResponseMessage AddRequestToServiceApi(string url, string json, string basicAuthUser = "", string basicAuthPassword = "", string bearerToken = "", string chargeKey = "", string APIKey = "", string APIPassword = "")
         {
             var Res = new HttpResponseMessage();
             try
@@ -103,7 +103,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.Helpers
                         var byteArray = new UTF8Encoding().GetBytes(basicAuthUser + ":" + basicAuthPassword);
                         client.DefaultRequestHeaders.Authorization =
                             new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                        //LogHelper.LogException("Authorization", Convert.ToBase64String(byteArray));
+                        LogHelper.LogException("Authorization", Convert.ToBase64String(byteArray));
                     }
                     if (!string.IsNullOrWhiteSpace(bearerToken))
                     {

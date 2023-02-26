@@ -10,7 +10,6 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Record
     {
         public long Id { get; set; }
 
-        [Required]
         public string Iso { get; set; }
 
         public string Code { get; set; }
@@ -25,21 +24,23 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Record
 
         public long? ModifiedBy { get; set; }
 
-        [Required]
-        public long ContinentId { get; set; }
+        //public IEnumerable<ItemLocalizeRecord> CountryLocalize { get; set; }
 
-        public IEnumerable<ItemLocalizeRecord> CountryLocalize { get; set; }
+        //public List<ItemLocalizeRecord> CountryLocalizeList { get; set; }
 
-        public List<ItemLocalizeRecord> CountryLocalizeList { get; set; }
-
-        public string DefaultName
-        {
-            get
-            {
-                return CountryLocalize?.FirstOrDefault()?.Name;
-            }
-            set { }
-        }
+        //public string DefaultName
+        //{
+        //    get
+        //    {
+        //        return CountryLocalize?.FirstOrDefault()?.Name;
+        //    }
+        //    set { }
+        //}
+        public string IntegrationId { get; set; }
+        public int? DiffHours { get; set; }
+        public string Name { get; set; }
+        public string Flag { get; set; }
+        public bool? Show { get; set; }
 
     }
 }

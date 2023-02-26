@@ -37,7 +37,7 @@
 //    public class Fixtures
 //    {
 //        [JsonProperty("events")]
-//        public bool Events;
+//        public bool PIL_Fantasy_Data_Integration.APIs;
 
 //        [JsonProperty("lineups")]
 //        public bool Lineups;

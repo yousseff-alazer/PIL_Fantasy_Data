@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pil-fantasy-data
+  labels:
+    app: pil-fantasy-data
+spec:
+  selector:
+    app: pil-fantasy-data
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

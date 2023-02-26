@@ -44,6 +44,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public string PenaltyScored { get; set; }
         public string PenaltyMissed { get; set; }
         public string PenaltySaved { get; set; }
+        public long? Points { get; set; }
 
         public virtual Match Match { get; set; }
         public virtual Player Player { get; set; }

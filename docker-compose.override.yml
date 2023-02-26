@@ -20,6 +20,14 @@ services:
     networks:
       - fantasy
 
+  #fantasy_cache_db:
+  #  container_name: fantasy_cache_db
+  #  restart: always
+  #  ports:
+  #    - "6379:6379"
+  #  networks:
+  #    - fantasy
+
   phpmyadmin3:
     depends_on:
       - fantasy_db
@@ -38,6 +46,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=server=fantasy_db;port=3310;database=fantasy_data;user id=root;password=1a456#idgj_5f@sj*du7fg78@;sslmode=none;treattinyasboolean=false;"
+      - "CacheSettings:ConnectionString=fantasy_cache_db:6379"
     depends_on:
       - fantasy_db
     ports:

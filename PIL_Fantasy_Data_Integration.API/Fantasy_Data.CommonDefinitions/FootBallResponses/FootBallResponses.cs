@@ -57,6 +57,12 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("score", NullValueHandling = NullValueHandling.Ignore)]
             public Score Score { get; set; }
+
+            [JsonProperty("team", NullValueHandling = NullValueHandling.Ignore)]
+            public Team Team;
+
+            [JsonProperty("players", NullValueHandling = NullValueHandling.Ignore)]
+            public List<Player> Players;
         }
 
         public class Root
@@ -396,6 +402,9 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("photo", NullValueHandling = NullValueHandling.Ignore)]
             public string Photo { get; set; }
+
+            [JsonProperty("position", NullValueHandling = NullValueHandling.Ignore)]
+            public string Position;
         }
 
 
@@ -620,6 +629,15 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBa
 
             [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
             public DateTime Date { get; set; }
+
+            //public DateTime DateStr
+            //{
+            //    get
+            //    {
+            //            return Date.ToUniversalTime();
+            //    }
+            //    set { }
+            //}
 
             [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
             public int Timestamp { get; set; }

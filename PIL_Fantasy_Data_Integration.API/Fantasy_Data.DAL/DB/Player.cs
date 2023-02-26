@@ -44,7 +44,10 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public string CardsYellow { get; set; }
         public string CardsYellowRed { get; set; }
         public string CardsRed { get; set; }
+        public long? PositionId { get; set; }
+        public string Price { get; set; }
 
+        public virtual PlayerPosition PositionNavigation { get; set; }
         public virtual Team Team { get; set; }
         public virtual ICollection<PlayerLocalize> PlayerLocalizes { get; set; }
         public virtual ICollection<PlayerMatchRating> PlayerMatchRatings { get; set; }

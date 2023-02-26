@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Records
 {
@@ -17,21 +19,21 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Record
 
         public int? Points { get; set; }
 
-        [Required]
+        //[Required]
         public long LeagueId { get; set; }
 
-        public IEnumerable<ItemLocalizeRecord> TeamLocalize { get; set; }
+        //public IEnumerable<ItemLocalizeRecord> TeamLocalize { get; set; }
 
-        public List<ItemLocalizeRecord> TeamLocalizeList { get; set; }
+        //public List<ItemLocalizeRecord> TeamLocalizeList { get; set; }
 
-        public string DefaultName
-        {
-            get
-            {
-                return TeamLocalize?.FirstOrDefault()?.Name;
-            }
-            set { }
-        }
+        //public string DefaultName
+        //{
+        //    get
+        //    {
+        //        return TeamLocalize?.FirstOrDefault()?.Name;
+        //    }
+        //    set { }
+        //}
 
         public string ImageUrl { get; set; }
         public int? OrderInLeague { get; set; }
@@ -47,8 +49,27 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Record
         public string IntegrationId { get; set; }
         public List<string> TeamIntegrationId { get; set; }
         public string Team2IntegrationId { get; set; }
-        public IEnumerable<ItemLocalizeRecord> LeagueLocalize { get; set; }
-        public List<string> LeagueIntegrationId { get; set; }
-        public string LeaguePerformId { get; set; }
+        //public IEnumerable<ItemLocalizeRecord> LeagueLocalize { get; set; }
+        public List<string> LeagueIntegrationIds { get; set; }
+        public string LeagueIntegrationId { get; set; }
+        //public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (TeamLocalize != null && TeamLocalize.Any())
+                    name = TeamLocalize?.FirstOrDefault()?.Name;
+                else
+                    name = value;
+                 
+            }
+        }
+        [JsonIgnore]
+        public IEnumerable<TeamLocalize> TeamLocalize { get;  set; }
     }
 }

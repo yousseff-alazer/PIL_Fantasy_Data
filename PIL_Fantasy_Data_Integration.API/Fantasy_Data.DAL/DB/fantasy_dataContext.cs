@@ -19,6 +19,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<CountryLocalize> CountryLocalizes { get; set; }
+        public virtual DbSet<FantasyRule> FantasyRules { get; set; }
+        public virtual DbSet<FantasyRuleLocalize> FantasyRuleLocalizes { get; set; }
         public virtual DbSet<League> Leagues { get; set; }
         public virtual DbSet<LeagueLocalize> LeagueLocalizes { get; set; }
         public virtual DbSet<Match> Matches { get; set; }
@@ -27,18 +29,12 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
         public virtual DbSet<PlayerLocalize> PlayerLocalizes { get; set; }
         public virtual DbSet<PlayerMatchRating> PlayerMatchRatings { get; set; }
         public virtual DbSet<PlayerMatchStat> PlayerMatchStats { get; set; }
+        public virtual DbSet<PlayerPosition> PlayerPositions { get; set; }
+        public virtual DbSet<PositionRule> PositionRules { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<TeamLocalize> TeamLocalizes { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;port=3310;database=fantasy_data;user id=root;password=1a456#idgj_5f@sj*du7fg78@;treattinyasboolean=false", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.22-mysql"));
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -135,6 +131,82 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                     .HasForeignKey(d => d.CountryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_countryLocalize_country");
+            });
+
+            modelBuilder.Entity<FantasyRule>(entity =>
+            {
+                entity.ToTable("fantasy_rule");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Description).HasMaxLength(150);
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
+                entity.Property(e => e.Max).HasColumnType("int(7)");
+
+                entity.Property(e => e.Message).HasMaxLength(250);
+
+                entity.Property(e => e.Min).HasColumnType("int(7)");
+
+                entity.Property(e => e.ModificationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Title).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<FantasyRuleLocalize>(entity =>
+            {
+                entity.ToTable("fantasy_rule_localize");
+
+                entity.HasIndex(e => e.FantasyRuleId, "fk_fantasy_rule_localize_fantasy_rule_idx");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Description).HasColumnType("mediumtext");
+
+                entity.Property(e => e.FantasyRuleId).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
+                entity.Property(e => e.LanguageId)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.ModificationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.HasOne(d => d.FantasyRule)
+                    .WithMany(p => p.FantasyRuleLocalizes)
+                    .HasForeignKey(d => d.FantasyRuleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_fantasy_rule_localize_fantasy_rule");
             });
 
             modelBuilder.Entity<League>(entity =>
@@ -263,6 +335,10 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                     .IsRequired()
                     .HasDefaultValueSql("b'0'");
 
+                entity.Property(e => e.IsSync)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
                 entity.Property(e => e.LeagueId).HasColumnType("bigint(20)");
 
                 entity.Property(e => e.ModificationDate).HasColumnType("datetime");
@@ -355,6 +431,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
             {
                 entity.ToTable("player");
 
+                entity.HasIndex(e => e.PositionId, "fk_player_position_idx");
+
                 entity.HasIndex(e => e.TeamId, "fk_player_team_idx");
 
                 entity.Property(e => e.Id)
@@ -421,11 +499,20 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.Position).HasMaxLength(150);
 
+                entity.Property(e => e.PositionId).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Price).HasMaxLength(45);
+
                 entity.Property(e => e.Rating).HasMaxLength(45);
 
                 entity.Property(e => e.TeamId).HasColumnType("bigint(20)");
 
                 entity.Property(e => e.Weight).HasMaxLength(150);
+
+                entity.HasOne(d => d.PositionNavigation)
+                    .WithMany(p => p.Players)
+                    .HasForeignKey(d => d.PositionId)
+                    .HasConstraintName("fk_player_position");
 
                 entity.HasOne(d => d.Team)
                     .WithMany(p => p.Players)
@@ -531,6 +618,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.PlayerId).HasColumnType("bigint(20)");
 
+                entity.Property(e => e.Points).HasColumnType("bigint(20)");
+
                 entity.Property(e => e.Rating).HasMaxLength(150);
 
                 entity.Property(e => e.TeamId).HasColumnType("bigint(20)");
@@ -632,6 +721,8 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
 
                 entity.Property(e => e.PlayerId).HasColumnType("bigint(20)");
 
+                entity.Property(e => e.Points).HasColumnType("bigint(20)");
+
                 entity.Property(e => e.ShotsOn).HasMaxLength(150);
 
                 entity.Property(e => e.ShotsTotal).HasMaxLength(150);
@@ -661,6 +752,62 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.DAL.DB
                     .HasForeignKey(d => d.TeamId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_player_match_stat_team");
+            });
+
+            modelBuilder.Entity<PlayerPosition>(entity =>
+            {
+                entity.ToTable("player_position");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Code).HasMaxLength(150);
+
+                entity.Property(e => e.CreatedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
+                entity.Property(e => e.ModificationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.Name).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<PositionRule>(entity =>
+            {
+                entity.ToTable("position_rule");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired()
+                    .HasDefaultValueSql("b'0'");
+
+                entity.Property(e => e.Message).HasMaxLength(250);
+
+                entity.Property(e => e.ModificationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedBy).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.PositionId).HasColumnType("bigint(20)");
+
+                entity.Property(e => e.RuleId).HasColumnType("bigint(20)");
             });
 
             modelBuilder.Entity<Team>(entity =>

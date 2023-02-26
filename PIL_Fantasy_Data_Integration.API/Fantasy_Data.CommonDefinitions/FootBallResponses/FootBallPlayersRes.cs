@@ -1,300 +1,348 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
+using System.Globalization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 
 namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.FootBallResponses
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Parameters
+    public partial class PlayerRoot
     {
-        [JsonProperty("team")]
-        public string Team;
+        [JsonProperty("get", NullValueHandling = NullValueHandling.Ignore)]
+        public string Get { get; set; }
 
-        [JsonProperty("season")]
-        public string Season;
+        [JsonProperty("parameters", NullValueHandling = NullValueHandling.Ignore)]
+        public Parameters Parameters { get; set; }
 
-        [JsonProperty("page")]
-        public string Page;
+        [JsonProperty("errors", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Errors { get; set; }
+
+        [JsonProperty("results", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Results { get; set; }
+
+        [JsonProperty("paging", NullValueHandling = NullValueHandling.Ignore)]
+        public Paging Paging { get; set; }
+
+        [JsonProperty("response", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Response> Response { get; set; }
     }
 
-    public class Paging
+    public partial class Paging
     {
-        [JsonProperty("current")]
-        public int Current;
+        [JsonProperty("current", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Current { get; set; }
 
-        [JsonProperty("total")]
-        public int Total;
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
     }
 
-    public class Birth
+    public partial class Parameters
     {
-        [JsonProperty("date")]
-        public string Date;
+        [JsonProperty("fixture", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long? Fixture { get; set; }
 
-        [JsonProperty("place")]
-        public string Place;
-
-        [JsonProperty("country")]
-        public string Country;
+        [JsonProperty("team", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long? Team { get; set; }
     }
 
-    public partial class Player
+    public partial class Response
     {
-        [JsonProperty("firstname")]
-        public string Firstname;
+        [JsonProperty("team", NullValueHandling = NullValueHandling.Ignore)]
+        public Team Team { get; set; }
 
-        [JsonProperty("lastname")]
-        public string Lastname;
-
-        [JsonProperty("age")]
-        public int? Age;
-
-        [JsonProperty("birth")]
-        public Birth Birth;
-
-        [JsonProperty("nationality")]
-        public string Nationality;
-
-        [JsonProperty("height")]
-        public string Height;
-
-        [JsonProperty("weight")]
-        public string Weight;
-
-        [JsonProperty("injured")]
-        public bool Injured;
-
-        [JsonProperty("photo")]
-        public string Photo;
+        [JsonProperty("players", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PlayerElement> Players { get; set; }
     }
 
-    public partial class Team
+    public partial class PlayerElement
     {
+        [JsonProperty("player", NullValueHandling = NullValueHandling.Ignore)]
+        public PlayerPlayer Player { get; set; }
+
+        [JsonProperty("statistics", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Statistic> Statistics { get; set; }
     }
 
-    public partial class League
+    public partial class PlayerPlayer
     {
-        [JsonProperty("flag")]
-        public string Flag;
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Id { get; set; }
 
-        [JsonProperty("season")]
-        public int Season;
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [JsonProperty("photo", NullValueHandling = NullValueHandling.Ignore)]
+        public Uri Photo { get; set; }
     }
 
-    public class Games
+    public partial class Statistic
     {
-        [JsonProperty("appearences")]
-        public int? Appearences;
+        [JsonProperty("games", NullValueHandling = NullValueHandling.Ignore)]
+        public Games Games { get; set; }
 
-        [JsonProperty("lineups")]
-        public object Lineups;
+        [JsonProperty("offsides", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Offsides { get; set; }
 
-        [JsonProperty("minutes")]
-        public object Minutes;
+        [JsonProperty("shots", NullValueHandling = NullValueHandling.Ignore)]
+        public Shots Shots { get; set; }
 
-        [JsonProperty("number")]
-        public object Number;
+        [JsonProperty("goals", NullValueHandling = NullValueHandling.Ignore)]
+        public Goals Goals { get; set; }
 
-        [JsonProperty("position")]
-        public string Position;
+        [JsonProperty("passes", NullValueHandling = NullValueHandling.Ignore)]
+        public Passes Passes { get; set; }
 
-        [JsonProperty("rating")]
-        public object Rating;
+        [JsonProperty("tackles", NullValueHandling = NullValueHandling.Ignore)]
+        public Tackles Tackles { get; set; }
 
-        [JsonProperty("captain")]
-        public bool Captain;
+        [JsonProperty("duels", NullValueHandling = NullValueHandling.Ignore)]
+        public Duels Duels { get; set; }
+
+        [JsonProperty("dribbles", NullValueHandling = NullValueHandling.Ignore)]
+        public Dribbles Dribbles { get; set; }
+
+        [JsonProperty("fouls", NullValueHandling = NullValueHandling.Ignore)]
+        public Fouls Fouls { get; set; }
+
+        [JsonProperty("cards", NullValueHandling = NullValueHandling.Ignore)]
+        public Cards Cards { get; set; }
+
+        [JsonProperty("penalty", NullValueHandling = NullValueHandling.Ignore)]
+        public Penalty Penalty { get; set; }
     }
 
-    public class Substitutes
+    public partial class Cards
     {
-        [JsonProperty("in")]
-        public object In;
+        [JsonProperty("yellow", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Yellow { get; set; }
 
-        [JsonProperty("out")]
-        public object Out;
-
-        [JsonProperty("bench")]
-        public object Bench;
+        [JsonProperty("red", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Red { get; set; }
     }
 
-    public class Shots
+    public partial class Dribbles
     {
-        [JsonProperty("total")]
-        public object Total;
+        [JsonProperty("attempts", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Attempts { get; set; }
 
-        [JsonProperty("on")]
-        public object On;
+        [JsonProperty("success", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Success { get; set; }
+
+        [JsonProperty("past", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Past { get; set; }
+    }
+
+    public partial class Duels
+    {
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
+
+        [JsonProperty("won", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Won { get; set; }
+    }
+
+    public partial class Fouls
+    {
+        [JsonProperty("drawn", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Drawn { get; set; }
+
+        [JsonProperty("committed", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Committed { get; set; }
+    }
+
+    public partial class Games
+    {
+        [JsonProperty("minutes", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Minutes { get; set; }
+
+        [JsonProperty("number", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Number { get; set; }
+
+        [JsonProperty("position", NullValueHandling = NullValueHandling.Ignore)]
+        public Position? Position { get; set; }
+
+        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
+        public string Rating { get; set; }
+
+        [JsonProperty("captain", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Captain { get; set; }
+
+        [JsonProperty("substitute", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Substitute { get; set; }
     }
 
     public partial class Goals
     {
-        [JsonProperty("total")]
-        public int? Total;
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
 
-        [JsonProperty("conceded")]
-        public object Conceded;
+        [JsonProperty("conceded", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Conceded { get; set; }
 
-        [JsonProperty("assists")]
-        public object Assists;
+        [JsonProperty("assists", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Assists { get; set; }
 
-        [JsonProperty("saves")]
-        public object Saves;
+        [JsonProperty("saves", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Saves { get; set; }
     }
 
-    public class Passes
+    public partial class Passes
     {
-        [JsonProperty("total")]
-        public object Total;
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
 
-        [JsonProperty("key")]
-        public object Key;
+        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Key { get; set; }
 
-        [JsonProperty("accuracy")]
-        public object Accuracy;
+        [JsonProperty("accuracy", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long? Accuracy { get; set; }
     }
 
-    public class Tackles
+    public partial class Penalty
     {
-        [JsonProperty("total")]
-        public object Total;
+        [JsonProperty("won", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Won { get; set; }
 
-        [JsonProperty("blocks")]
-        public object Blocks;
+        [JsonProperty("commited", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Commited { get; set; }
 
-        [JsonProperty("interceptions")]
-        public object Interceptions;
+        [JsonProperty("scored", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Scored { get; set; }
+
+        [JsonProperty("missed", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Missed { get; set; }
+
+        [JsonProperty("saved", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Saved { get; set; }
     }
 
-    public class Duels
+    public partial class Shots
     {
-        [JsonProperty("total")]
-        public object Total;
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
 
-        [JsonProperty("won")]
-        public object Won;
+        [JsonProperty("on", NullValueHandling = NullValueHandling.Ignore)]
+        public long? On { get; set; }
     }
 
-    public class Dribbles
+    public partial class Tackles
     {
-        [JsonProperty("attempts")]
-        public object Attempts;
+        [JsonProperty("total", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Total { get; set; }
 
-        [JsonProperty("success")]
-        public object Success;
+        [JsonProperty("blocks", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Blocks { get; set; }
 
-        [JsonProperty("past")]
-        public object Past;
+        [JsonProperty("interceptions", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Interceptions { get; set; }
     }
 
-    public class Fouls
+    public partial class Team
     {
-        [JsonProperty("drawn")]
-        public object Drawn;
-
-        [JsonProperty("committed")]
-        public object Committed;
+        [JsonProperty("update", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Update { get; set; }
     }
 
-    public class Cards
+    public enum Position { D, F, G, M };
+
+    internal static class Converter
     {
-        [JsonProperty("yellow")]
-        public object Yellow;
-
-        [JsonProperty("yellowred")]
-        public object Yellowred;
-
-        [JsonProperty("red")]
-        public object Red;
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            DateParseHandling = DateParseHandling.None,
+            Converters =
+            {
+                PositionConverter.Singleton,
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+        };
     }
 
-    public class Penalty
+    internal class ParseStringConverter : JsonConverter
     {
-        [JsonProperty("won")]
-        public object Won;
+        public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
 
-        [JsonProperty("commited")]
-        public object Commited;
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            long l;
+            if (Int64.TryParse(value, out l))
+            {
+                return l;
+            }
+            throw new Exception("Cannot unmarshal type long");
+        }
 
-        [JsonProperty("scored")]
-        public object Scored;
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (long)untypedValue;
+            serializer.Serialize(writer, value.ToString());
+            return;
+        }
 
-        [JsonProperty("missed")]
-        public object Missed;
-
-        [JsonProperty("saved")]
-        public object Saved;
+        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
 
-    public class Statistic
+    internal class PositionConverter : JsonConverter
     {
-        [JsonProperty("team")]
-        public Team Team;
+        public override bool CanConvert(Type t) => t == typeof(Position) || t == typeof(Position?);
 
-        [JsonProperty("league")]
-        public League League;
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "D":
+                    return Position.D;
+                case "F":
+                    return Position.F;
+                case "G":
+                    return Position.G;
+                case "M":
+                    return Position.M;
+            }
+            throw new Exception("Cannot unmarshal type Position");
+        }
 
-        [JsonProperty("games")]
-        public Games Games;
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Position)untypedValue;
+            switch (value)
+            {
+                case Position.D:
+                    serializer.Serialize(writer, "D");
+                    return;
+                case Position.F:
+                    serializer.Serialize(writer, "F");
+                    return;
+                case Position.G:
+                    serializer.Serialize(writer, "G");
+                    return;
+                case Position.M:
+                    serializer.Serialize(writer, "M");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Position");
+        }
 
-        [JsonProperty("substitutes")]
-        public Substitutes Substitutes;
-
-        [JsonProperty("shots")]
-        public Shots Shots;
-
-        [JsonProperty("goals")]
-        public Goals Goals;
-
-        [JsonProperty("passes")]
-        public Passes Passes;
-
-        [JsonProperty("tackles")]
-        public Tackles Tackles;
-
-        [JsonProperty("duels")]
-        public Duels Duels;
-
-        [JsonProperty("dribbles")]
-        public Dribbles Dribbles;
-
-        [JsonProperty("fouls")]
-        public Fouls Fouls;
-
-        [JsonProperty("cards")]
-        public Cards Cards;
-
-        [JsonProperty("penalty")]
-        public Penalty Penalty;
-    }
-
-    public class Response
-    {
-        [JsonProperty("player")]
-        public Player Player;
-
-        [JsonProperty("statistics")]
-        public List<Statistic> Statistics;
-    }
-
-    public class FootBallPlayersRes
-    {
-        [JsonProperty("get")]
-        public string Get;
-
-        [JsonProperty("parameters")]
-        public Parameters Parameters;
-
-        [JsonProperty("errors")]
-        public List<object> Errors;
-
-        [JsonProperty("results")]
-        public int Results;
-
-        [JsonProperty("paging")]
-        public Paging Paging;
-
-        [JsonProperty("response")]
-        public List<Response> Response;
+        public static readonly PositionConverter Singleton = new PositionConverter();
     }
 }

@@ -9,7 +9,7 @@ namespace PIL_Fantasy_Data_Integration.API.Fantasy_Data.CommonDefinitions.Reques
     {
         public MatchRecord MatchRecord { get; set; }
 
-        public string DateName { get; set; }
-        public bool WithActions { get; set; }
+        //public string DateName { get; set; }
+        //public bool WithActions { get; set; }
     }
 }
